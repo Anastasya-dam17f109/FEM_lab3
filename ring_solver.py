@@ -27,6 +27,8 @@ E_J_ = 0.5466*10**9
 E_G_ = 0.2878*10**9
 # Матрица D^-1 для элемента
 D_= np.array([[1.0/(E_F_),0,0],[0,1.0/(E_J_),0],[0,0,1.0/(E_G_)]])
+#D_= np.array([[1.0/(E_J_*E_G_),0,0],[0,1.0/(E_F_*E_G_),0],[0,0,1.0/(E_J_*E_F_)]])
+D= np.array([[(E_F_),0,0],[0,(E_J_),0],[0,0,(E_G_)]])
 # матрица H^-1 для элемента
 H_matr = np.ones(6*6, dtype=float).reshape(6, 6)
 H_matr[:3,:3] = 2*D_
@@ -57,19 +59,19 @@ G_matr = np.ones(6*9, dtype=float).reshape(6, 9)
 ksi1 = 0.5 + 1.0/(2*math.sqrt(3))
 ksi2 = 0.5 - 1.0/(2*math.sqrt(3))
 
-F1[:3,:3] = psi1(ksi1)*np.dot(D_,B1(ksi1))
-F1[3:,:3] = psi2(ksi1)*np.dot(D_,B1(ksi1))
-F1[:3,3:6] = psi1(ksi1)*np.dot(D_,B2(ksi1))
-F1[3:,3:6] = psi2(ksi1)*np.dot(D_,B2(ksi1))
-F1[:3,6:] = psi1(ksi1)*np.dot(D_,B3(ksi1))
-F1[3:,6:] = psi2(ksi1)*np.dot(D_,B3(ksi1))
+F1[:3,:3] = psi1(ksi1)*np.dot(D,B1(ksi1))
+F1[3:,:3] = psi2(ksi1)*np.dot(D,B1(ksi1))
+F1[:3,3:6] = psi1(ksi1)*np.dot(D,B2(ksi1))
+F1[3:,3:6] = psi2(ksi1)*np.dot(D,B2(ksi1))
+F1[:3,6:] = psi1(ksi1)*np.dot(D,B3(ksi1))
+F1[3:,6:] = psi2(ksi1)*np.dot(D,B3(ksi1))
 
-F2[:3,:3] = psi1(ksi2)*np.dot(D_,B1(ksi2))
-F2[3:,:3] = psi2(ksi2)*np.dot(D_,B1(ksi2))
-F2[:3,3:6] = psi1(ksi2)*np.dot(D_,B2(ksi2))
-F2[3:,3:6] = psi2(ksi2)*np.dot(D_,B2(ksi2))
-F2[:3,6:] = psi1(ksi2)*np.dot(D_,B3(ksi2))
-F2[3:,6:] = psi2(ksi2)*np.dot(D_,B3(ksi2))
+F2[:3,:3] = psi1(ksi2)*np.dot(D,B1(ksi2))
+F2[3:,:3] = psi2(ksi2)*np.dot(D,B1(ksi2))
+F2[:3,3:6] = psi1(ksi2)*np.dot(D,B2(ksi2))
+F2[3:,3:6] = psi2(ksi2)*np.dot(D,B2(ksi2))
+F2[:3,6:] = psi1(ksi2)*np.dot(D,B3(ksi2))
+F2[3:,6:] = psi2(ksi2)*np.dot(D,B3(ksi2))
 
 G_matr = (F1 + F2)*L/2.0
 G_matr_t = G_matr.T
